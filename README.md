@@ -1,5 +1,7 @@
-# Quer ser desenvolvedor frontend na Webjump?
-Criamos este teste para avaliar seus conhecimentos e habilidades frontend (HTML, CSS e JavaScript).
+# WebJump Front-end Test
+Repositório contendo todo o conteúdo proposto pela empresa WebJump como teste de conhecimento.
+
+![Layout](assets/preview.jpg)
 
 ## O teste
 O desafio é tornar o layout abaixo em uma página funcional.  
@@ -10,7 +12,7 @@ Portanto, dê o seu melhor!
 
 :warning: **OBS:** Os layouts podem ser encontrados na pasta **layout** ou através do link: https://xd.adobe.com/view/bcf73053-f8e6-431c-9eb0-bf24304f6fff-e9a4/specs/
 
-![Layout](assets/preview.jpg)
+
 
 ## Instruções
 - Os arquivos do layout estão no diretório assets deste repositório

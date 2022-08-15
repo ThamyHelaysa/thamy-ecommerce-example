@@ -3,14 +3,35 @@
   <head>
     <meta charset="UTF-8">
     <title>Webjump - Desafio Frontend</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" />
+    </noscript>
+    <link rel="stylesheet" href="./css/main.css">
   </head>
   <body>
-    <h1>Pronto para codar!</h1>
     <div class="page-wrapper">
-      <header class="header">
-        <div class="account-b"></div>
-        <div class="logo"></div>
-        <div class="search"></div>
+      <header class="page-header">
+        <div class="account">
+          <div class="account-box">
+            <a href="/" class="link login">Acesse sua Conta</a>
+            <span class="text">ou</span>
+            <a href="/" class="link register">Cadastre-se</a>
+          </div>
+        </div>
+        <div class="logo">
+          <a href="/" class="link">
+            <img src="./media/webjump-logo-sembg.png" alt="Webjump">
+          </a>
+        </div>
+        <div class="search">
+          <div class="search-box">
+            <input type="search" name="search" id="search">
+            <button class="btn btn-search">Buscar</button>
+          </div>
+        </div>
         <nav class="categories"></nav>
       </header>
       <main class="page-content">
@@ -18,7 +39,7 @@
         <div class="banner"></div>
         <div class="content"></div>
       </main>
+      <footer class="page-footer"></footer>
     </div>
-    <footer class="page-footer"></footer>
   </body>
 </html>
