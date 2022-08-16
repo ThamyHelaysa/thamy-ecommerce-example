@@ -10,6 +10,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" />
     </noscript>
     <link rel="stylesheet" href="./css/main.css">
+    <script type="module" src="./js/index.js"></script>
   </head>
   <body>
     <div class="page-wrapper">
@@ -32,7 +33,10 @@
             <button class="btn btn-search">Buscar</button>
           </div>
         </div>
-        <nav class="categories"></nav>
+        <nav-categories>
+          <template shadowroot="open">
+          </template>
+        </nav-categories>
       </header>
       <main class="page-content">
         <div class="sidebar"></div>
