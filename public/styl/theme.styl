@@ -1,0 +1,45 @@
+html,
+body
+  width 100%
+  height 100%
+  background-color bg
+  color darker-snow
+  font-family 'Open Sans', sans-serif
+  font-size 16px
+  overflow-x hidden
+
+.page-wrapper
+  position relative
+  padding-bottom 30px
+  @media (max-width: 1024px)
+    padding 0 20px 20px
+  > * 
+    max-container()
+
+.page-header
+  position sticky
+  top 0
+  display flex
+  flex-flow row wrap
+  justify-content space-between
+  gap 32px 0
+
+.page-content
+  min-height 80vh
+  padding 24px 0
+
+.page-footer
+  bg-primary()
+  height 176px
+
+nav-categories
+  > .list .item 
+    opacity 1
+    visibility visible
+    transform scale(1)
+    transition all 300ms ease-in-out
+  :not(:defined)
+    > .list .item
+      opacity 0
+      visibility hidden
+      transform scale(0)

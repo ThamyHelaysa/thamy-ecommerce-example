@@ -1,0 +1,35 @@
+// Account
+.account
+  position relative
+  flex 1 0 100%
+  padding-top 5px
+  padding-bottom 5px
+  text-align right
+  z-index 1
+  &::after
+    bg-full(#231F20)
+    content ''
+    z-index -1
+
+.account-box
+  align-items baseline
+  color brightness
+  font-size 14px
+  gap 0 5px
+  .account > &
+    display inline-flex
+  > .link
+    text-decoration underline
+  
+// Categories
+nav-categories
+  position relative
+  &::after
+    bg-full(primary)
+    content ''
+    z-index -1
+    
+  .page-header > &
+    flex 1 0 100%
+
+
