@@ -5,11 +5,13 @@ export default class SearchForm extends HTMLFormElement {
 
     this.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      console.log(evt)
+      const valInput = evt.currentTarget.elements[0].value;
+
+      if(valInput){
+        window.location.pathname = `${valInput}`
+      }
+
     })
 
   }
-
-
-
 }

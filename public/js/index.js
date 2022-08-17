@@ -1,5 +1,6 @@
-import NavCategories from './components/navigation.js'
-import SearchForm from './components/search-form.js'
+import NavCategories from "./components/navigation.js"
+import SearchForm from "./components/search-form.js"
+import FilterSidebar from "./components/filters.js";
 
 // mock
 const listMock = [
@@ -40,28 +41,57 @@ const listMock = [
   return templateItems;
 }
 
+function defineCustomElements(str, el, obj){
+  return obj ? customElements.define(`${str}`, el, obj) : customElements.define(`${str}`, el);
+}
+
+function setDataList(el){
+  document.querySelector(el).setAttribute("data-list", formatedList);
+}
+
 // Set attribute value for custom element handle
 const formatedList = attachToShadowDom(listMock);
-document.querySelector("nav-categories").setAttribute('data-list', formatedList);
+setDataList("nav-categories");
+// document.querySelector("nav-categories").setAttribute("data-list", formatedList);
 
 // Now declaring the element
-customElements.define('nav-categories', NavCategories);
+// customElements.define("nav-categories", NavCategories);
+defineCustomElements("nav-categories", NavCategories);
 
-customElements.define('search-form', SearchForm, {extends: 'form'});
+defineCustomElements("search-form", SearchForm, {extends: "form"});
+// customElements.define("search-form", SearchForm, {extends: "form"});
 
+// Sidebar
 // Set sidebar extending NavCat
 class ListSidebar extends NavCategories {
   constructor(){
     super();
   }
 }
+const sidebar = document.querySelector("list-sidebar");
 
-document.querySelector("list-sidebar").setAttribute('data-list', formatedList);
-customElements.define("list-sidebar", ListSidebar);
+function initListSidebar(){
+  setDataList("list-sidebar");
+  // document.querySelector("list-sidebar").setAttribute("data-list", formatedList);
+  defineCustomElements("list-sidebar", ListSidebar)
+  // customElements.define("list-sidebar", ListSidebar);
+}
+
+if (sidebar){
+  initListSidebar();
+}
+
+// Filters
+const filters = document.querySelector("filter-sidebar");
+
+if(filters){
+  defineCustomElements("filter-sidebar", FilterSidebar);
+}
+
 
 // Set template nav
-// customElements.whenDefined('nav-categories').then(() => {
+// customElements.whenDefined("nav-categories").then(() => {
 //   var newItems = attachToShadowDom(listMock);
-//   document.querySelector("nav-categories").setAttribute('data-list', newItems);
+//   document.querySelector("nav-categories").setAttribute("data-list", newItems);
 //   console.log(document.querySelector("nav-categories"));
 // });

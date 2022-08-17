@@ -264,6 +264,26 @@ nav-categories::after {
 .page-header > nav-categories {
   flex: 1 0 100%;
 }
+.breadcrumb {
+  padding-top: 24px;
+}
+.breadcrumb > .list {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+.breadcrumb .item.separator {
+  padding: 0 4px;
+}
+.breadcrumb .item.separator .text {
+  color: inherit;
+}
+.breadcrumb-text {
+  color: #cb0d1f;
+}
+.breadcrumb-link {
+  color: #00a8a9;
+}
 .banner {
   width: 100%;
   height: 100%;

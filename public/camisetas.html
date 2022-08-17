@@ -30,7 +30,7 @@
         <div class="search">
           <div class="search-box">
             <form id="search-form" action="" method="post" is="search-form" class="form-search">
-              <input class="input input-search" type="search" name="search" id="search">
+              <input required class="input input-search" type="search" name="search" id="search">
               <button class="btn btn-search">Buscar</button>
             </form>
           </div>
@@ -58,10 +58,29 @@
         <nav-categories data-id="nav-tmpl" >
         </nav-categories>
       </header>
+      <div class="breadcrumb">
+        <ul class="breadcrumb-list list">
+          <li class="breadcrumb-item item">
+            <a href="/" class="link breadcrumb-link">Página inicial</a>
+          </li>
+          <li class="breadcrumb-item item separator"><span class="text">></span></li>
+          <li class="breadcrumb-item item current">
+            <span class="text breadcrumb-text">Camisetas</span>
+          </li>
+        </ul>
+      </div>
       <main class="page-content">
         <div class="sidebar">
+          <template id="filter-tmpl">
+            <style>
+              .filters {
+                background-color: #FFFFFF;
+                border: 1px solid #E2DEDC;
+              }
+            </style>
+          </template>
+          <filter-sidebar data-id="filter-tmpl"></filter-sidebar>
         </div>
-        <div class="banner"></div>
         <div class="content">
         </div>
       </main>
