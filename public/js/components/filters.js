@@ -16,7 +16,6 @@ export default class FilterSidebar extends HTMLElement {
         <div class="filtered">
         </div>
         <div class="filters-list list">
-
         </div>
       </div>
     `

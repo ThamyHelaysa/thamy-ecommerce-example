@@ -1,6 +1,7 @@
 import NavCategories from "./components/navigation.js"
 import SearchForm from "./components/search-form.js"
 import FilterSidebar from "./components/filters.js";
+import ListButton from "./components/list-button.js";
 
 // mock
 const listMock = [
@@ -88,6 +89,16 @@ if(filters){
   defineCustomElements("filter-sidebar", FilterSidebar);
 }
 
+// List Style
+const buttonList = document.querySelector("[is='list-button']");
+
+if(buttonList){
+  defineCustomElements("list-button", ListButton, {extends: "button"});
+}
+
+window.addEventListener("change:listing", (detail) => {
+  console.log(detail);
+});
 
 // Set template nav
 // customElements.whenDefined("nav-categories").then(() => {
