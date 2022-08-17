@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
   <head>
     <meta charset="UTF-8">
-    <title>Webjump - Desafio - Categorias</title>
+    <title>Webjump - Desafio Frontend - Calçados</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" media="print" onload="this.media='all'" />
@@ -10,9 +10,9 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" />
     </noscript>
     <link rel="stylesheet" href="./css/main.css">
+    <script type="module" src="./js/index.js"></script>
   </head>
-  <body>
-    <h1>Pagina de categorias!</h1>
+  <body class="cms-home">
     <div class="page-wrapper">
       <header class="page-header">
         <div class="account">
@@ -27,23 +27,45 @@
             <img src="./media/webjump-logo-sembg.png" alt="Webjump">
           </a>
         </div>
-        <div class="search"></div>
-        <nav-categories>
-          <template shadowroot="open">
-          </template>
+        <div class="search">
+          <div class="search-box">
+            <form id="search-form" action="" method="post" is="search-form" class="form-search">
+              <input class="input input-search" type="search" name="search" id="search">
+              <button class="btn btn-search">Buscar</button>
+            </form>
+          </div>
+        </div>
+        <template id="nav-tmpl">
+          <style>
+            ul, li {
+              list-style: none;
+              padding: 0;
+            }
+            a {
+              color: #FFFFFF;
+              font-weight: bold;
+              text-decoration: none;
+              text-transform: uppercase;
+            }
+            .list {
+              display: flex;
+              justify-content: flex-start;
+              gap: 0 4.5vw;
+            }
+          </style>
+          <slot></slot>
+        </template>
+        <nav-categories data-id="nav-tmpl" >
         </nav-categories>
       </header>
-      <div class="breadcrumb"></div>
       <main class="page-content">
         <div class="sidebar">
-          <!-- Filtros -->
         </div>
+        <div class="banner"></div>
         <div class="content">
-          <!-- Resultado -->
         </div>
       </main>
       <footer class="page-footer"></footer>
     </div>
-    
   </body>
 </html>

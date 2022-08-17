@@ -1,4 +1,5 @@
 import NavCategories from './components/navigation.js'
+import SearchForm from './components/search-form.js'
 
 // mock
 const listMock = [
@@ -45,6 +46,18 @@ document.querySelector("nav-categories").setAttribute('data-list', formatedList)
 
 // Now declaring the element
 customElements.define('nav-categories', NavCategories);
+
+customElements.define('search-form', SearchForm, {extends: 'form'});
+
+// Set sidebar extending NavCat
+class ListSidebar extends NavCategories {
+  constructor(){
+    super();
+  }
+}
+
+document.querySelector("list-sidebar").setAttribute('data-list', formatedList);
+customElements.define("list-sidebar", ListSidebar);
 
 // Set template nav
 // customElements.whenDefined('nav-categories').then(() => {

@@ -70,6 +70,7 @@ button {
   background-color: transparent;
   border: 0;
   padding: 0;
+  font-family: inherit;
 }
 a:focus,
 button:focus {
@@ -156,8 +157,13 @@ body {
   flex-flow: row wrap;
   justify-content: space-between;
   gap: 32px 0;
+  background-color: #fff;
 }
 .page-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 25px;
   min-height: 80vh;
   padding: 24px 0;
 }
@@ -175,6 +181,21 @@ nav-categories :not(:defined) > .list .item {
   opacity: 0;
   visibility: hidden;
   transform: scale(0);
+}
+button,
+.btn {
+  cursor: pointer;
+}
+.text,
+p,
+span {
+  color: #1a1818;
+  font-family: inherit;
+}
+.title {
+  margin-block-end: 0.5rem;
+  color: #1a1818;
+  font-size: 26px;
 }
 .account {
   position: relative;
@@ -207,6 +228,25 @@ nav-categories :not(:defined) > .list .item {
 .account-box > .link {
   text-decoration: underline;
 }
+.page-header > .search {
+  flex: 0 1 40%;
+}
+.form-search {
+  display: flex;
+}
+.form-search > .input {
+  width: 100%;
+  padding: 0 0.8rem;
+  border: 1px solid #959595;
+}
+.form-search > .btn-search {
+  padding: 0 22px;
+  height: 44px;
+  background-color: #cb0d1f;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 nav-categories {
   position: relative;
 }
@@ -223,4 +263,17 @@ nav-categories::after {
 }
 .page-header > nav-categories {
   flex: 1 0 100%;
+}
+.banner {
+  width: 100%;
+  height: 100%;
+  background-color: #acacac;
+}
+.sidebar {
+  grid-row: 1/3;
+  padding: 20px 1rem;
+  background-color: #e2dedc;
+}
+.content {
+  grid-column: 2/3;
 }

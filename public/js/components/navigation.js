@@ -4,37 +4,27 @@ export default class NavCategories extends HTMLElement {
     super();
 
     // Get data value
-    const newList = this.getAttribute('data-list');
+    const newList = this.getAttribute("data-list");
+    const dataID = this.getAttribute("data-id");
 
-    const shadowRoot = this.attachShadow({mode: 'open'});
+    // Get template
+    const dataTemplate = document.getElementById(dataID);
+
+    const shadowRoot = this.attachShadow({mode: "open"});
     shadowRoot.innerHTML = `
-      <style>
-        ul, li {
-          list-style: none;
-          padding: 0;
-        }
-        a {
-          color: #FFFFFF;
-          font-weight: bold;
-          text-decoration: none;
-          text-transform: uppercase;
-        }
-        .categories-list {
-          display: flex;
-          justify-content: flex-start;
-          gap: 0 4.5vw;
-        }
-      </style>
-      <ul class="list categories-list">
-        <li class="item-list-item categories-item home">
+      <ul class="list">
+        <li class="item-list-item home">
           <a href="/" class="link">Página Inicial</a>
         </li>
         ${newList}
-        <li class="item-list-item categories-item contact">
+        <li class="item-list-item contact">
           <a href="/" class="link">Contato</a>
         </li>
       </ul>
     `
+
+    shadowRoot.append(dataTemplate.content.cloneNode(true));
+
     // Remove attr for clean Html
     this.removeAttribute('data-list')
   }

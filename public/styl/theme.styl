@@ -23,8 +23,13 @@ body
   flex-flow row wrap
   justify-content space-between
   gap 32px 0
+  background-color brightness
 
 .page-content
+  display grid
+  grid-template-columns 1fr 2fr
+  grid-template-rows repeat(2,1fr)
+  gap 25px
   min-height 80vh
   padding 24px 0
 
@@ -43,3 +48,17 @@ nav-categories
       opacity 0
       visibility hidden
       transform scale(0)
+
+button, 
+.btn
+  cursor: pointer
+
+.text,
+p, span
+  color darkness
+  font-family inherit
+
+.title
+  margin-block-end .5rem
+  color darkness
+  font-size 26px
