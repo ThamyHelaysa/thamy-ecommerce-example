@@ -2,49 +2,41 @@ import NavCategories from "./components/navigation.js"
 import SearchForm from "./components/search-form.js"
 import FilterSidebar from "./components/filters.js";
 import ListButton from "./components/list-button.js";
+import ListProducts from "./components/list-products.js";
 
 // Services
-import products from "./services/products.js";
-
-// mock
-// const listMock = [
-//   {
-//     "id": 1,
-//     "name": "Camisetas",
-//     "path": "camisetas"
-//   },
-//   {
-//     "id": 2,
-//     "name": "Calças",
-//     "path": "calcas"
-//   },
-//   {
-//     "id": 3,
-//     "name": "Calçados",
-//     "path": "calcados"
-//   }
-// ]
+import categories from "./services/categories.js";
 
 /**
- * Method to format and attach elements to
- * shadowDOM
- * @param {Array} list categories from API
+ * Async function that returns categories items
+ * from categories service
+ * @returns List Items
  */
- async function attachToShadowDom(){
-
+async function getCategoriesItems(){
   var list = ""
   try {
-    const res = await products.getProducts
-    list = res;
+    const res = await categories.getCategories();
+    list = res.items;
   } catch(err){
     throw new Error(`Fail get categories: ${err}`);
   }
+  return list
+}
+
+/**
+ * Async function that gets categories items
+ * and transform the data to set to the shadowDOM
+ * @returns Template Items
+ */
+async function attachToShadowDom(){
+
+  var list = await getCategoriesItems();
 
   var templateItems = "";
   list.forEach(el => {
     var renderedItem = `
       <li class="item list-item categories-item">
-        <a href="${el.path}">
+        <a href="/${el.path}">
           ${el.name}
         </a>
       </li>
@@ -63,16 +55,13 @@ function setDataList(el){
 }
 
 // Set attribute value for custom element handle
-const formatedList = attachToShadowDom();
+const formatedList = await attachToShadowDom();
 setDataList("nav-categories");
-// document.querySelector("nav-categories").setAttribute("data-list", formatedList);
 
 // Now declaring the element
-// customElements.define("nav-categories", NavCategories);
 defineCustomElements("nav-categories", NavCategories);
 
 defineCustomElements("search-form", SearchForm, {extends: "form"});
-// customElements.define("search-form", SearchForm, {extends: "form"});
 
 // Sidebar
 // Set sidebar extending NavCat
@@ -85,9 +74,7 @@ const sidebar = document.querySelector("list-sidebar");
 
 function initListSidebar(){
   setDataList("list-sidebar");
-  // document.querySelector("list-sidebar").setAttribute("data-list", formatedList);
-  defineCustomElements("list-sidebar", ListSidebar)
-  // customElements.define("list-sidebar", ListSidebar);
+  defineCustomElements("list-sidebar", ListSidebar);
 }
 
 if (sidebar){
@@ -113,4 +100,8 @@ window.addEventListener("change:listing", (detail) => {
   console.log(detail);
 });
 
-
+// Categorie Products
+const listProducts = document.querySelector("list-products");
+if (listProducts){
+  defineCustomElements("list-products", ListProducts);
+}
