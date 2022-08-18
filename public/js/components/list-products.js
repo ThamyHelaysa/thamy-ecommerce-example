@@ -32,9 +32,9 @@ export default class ListProducts extends HTMLElement {
     this.catId = this.catItem.id;
 
     // Get categorie products of current categorie
+    NProgress.start();
     this.products = await this.getCategorieProds(this.catId);
-    console.table(this.products);
-    // debugger;
+    NProgress.done();
 
     this.productsFormated = ""
     this.products.forEach((prod)=>{
