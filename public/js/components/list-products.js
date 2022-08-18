@@ -6,6 +6,8 @@ export default class ListProducts extends HTMLElement {
     super();
 
     this.categorie = this.getAttribute("name");
+    this.tmplID = this.getAttribute("data-id");
+    this.templateStyle = document.getElementById(this.tmplID);
 
     const shadowRoot = this.attachShadow({mode: "open"});
     shadowRoot.innerHTML = `
@@ -15,6 +17,8 @@ export default class ListProducts extends HTMLElement {
         </ul>
       </div>
     `
+
+    shadowRoot.append(this.templateStyle.content.cloneNode(true));
 
   }
 
@@ -39,21 +43,17 @@ export default class ListProducts extends HTMLElement {
         <li class="product-item">
           <div class="product-box">
             <div class="product-image">
-              <img src="${prod.image}">
+              <img width="196" height="215" src="${prod.image}">
             </div>
             <div class="product-info">
               <div class="product-name"><span class="text">${prod.name}</span></div>
               <div class="price-box">
                 <div class="${prodSpecial ? "old-" : ""}price">R$${prod.price}</div>
-                ${ prodSpecial ?
-                  "<div class='special-price'></div>"
-                  :
-                  ""
-                }
+                ${ prodSpecial ? "<div class='special-price'>R$" + prodSpecial + "</div>" : ""}
               </div>
             </div>
             <div class="product-action">
-              <button type="button">Comprar</button>
+              <button class="btn-action" type="button">Comprar</button>
             </div>
           </div>
         </li>

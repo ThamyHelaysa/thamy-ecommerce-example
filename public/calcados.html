@@ -2,7 +2,8 @@
 <html lang="pt">
   <head>
     <meta charset="UTF-8">
-    <title>Webjump - Desafio Frontend - Calçados</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webjump - Desafio Frontend - Camisetas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" media="print" onload="this.media='all'" />
@@ -29,7 +30,7 @@
         </div>
         <div class="search">
           <div class="search-box">
-            <form id="search-form" action="" method="post" is="search-form" class="form-search">
+            <form id="search-form" method="post" is="search-form" class="form-search">
               <input required class="input input-search" type="search" name="search" id="search">
               <button class="btn btn-search">Buscar</button>
             </form>
@@ -60,9 +61,22 @@
       </header>
       <main class="page-content">
         <div class="sidebar">
+          <template id="filter-tmpl">
+            <style>
+              .filters {
+                background-color: #FFFFFF;
+                border: 1px solid #E2DEDC;
+              }
+            </style>
+          </template>
+          <filter-sidebar data-id="filter-tmpl"></filter-sidebar>
         </div>
-        <div class="banner"></div>
         <div class="content">
+          <div class="list-style">
+            <button name="grid" type="button" class="btn btn-grid" is="list-button">GRID</button>
+            <button name="list" type="button" class="btn btn-list" is="list-button">LISTA</button>
+          </div>
+          <list-products class="grid" data-id="products-tmpl" name="calcados"></list-products>
         </div>
       </main>
       <footer class="page-footer"></footer>

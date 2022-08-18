@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camisetas</title>
+    <title>Webjump - Desafio Frontend - Camisetas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" media="print" onload="this.media='all'" />
@@ -30,7 +30,7 @@
         </div>
         <div class="search">
           <div class="search-box">
-            <form id="search-form" action="" method="post" is="search-form" class="form-search">
+            <form id="search-form" method="post" is="search-form" class="form-search">
               <input required class="input input-search" type="search" name="search" id="search">
               <button class="btn btn-search">Buscar</button>
             </form>
@@ -87,7 +87,62 @@
             <button name="grid" type="button" class="btn btn-grid" is="list-button">GRID</button>
             <button name="list" type="button" class="btn btn-list" is="list-button">LISTA</button>
           </div>
-          <list-products name="camisetas"></list-products>
+          <template id="products-tmpl">
+            <style>
+              * {
+                font-family: inherit!important;
+              }
+              img {
+                display: block;
+                max-width: 100%;
+              }
+              ul, li {
+                list-style: none;
+                padding: 0;
+              }
+              :host(.grid) .products-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+                gap: 20px 30px;
+              }
+              .product-image {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 8px;
+                padding: 8px;
+                border: 1px solid #E2DEDC;
+              }
+              .product-name {
+                margin-bottom: 20px;
+                text-align: center;
+                text-transform: uppercase;
+              }
+              .price-box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 10px;
+              }
+              .price-box > .price {
+                color: #1E2B50;
+                font-size: 21px;
+                font-weight: bold;
+              }
+              .btn-action {
+                width: 100%;
+                padding: 8px 5px;
+                background-color: #00A8A9;
+                border: 0;
+                border-radius: 5px;
+                color: #FFFFFF;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: bold;
+                text-transform: uppercase;
+              }
+            </style>
+          </template>
+          <list-products class="grid" data-id="products-tmpl" name="camisetas"></list-products>
         </div>
       </main>
       <footer class="page-footer"></footer>

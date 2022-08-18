@@ -38,20 +38,6 @@ pathsFromMock.forEach((el)=>{
   return app.use(el.endpoint, serveStatic("public", {"index": [`${el.file}.html`, `${el.file}.htm`]}))
 })
 
-
-// Serve up public folder
-// app.use("/", serveStatic("public", {"index": ["index.html", "index.htm"]}))
-
-// app.use("/camisetas", serveStatic("public", {"index": ["camisetas.html", "camisetas.htm"]}))
-// app.use("/calcas", serveStatic("public", {"index": ["calcas.html", "calcas.htm"]}))
-// app.use("/calcados", serveStatic("public", {"index": ["calcados.html", "calcados.htm"]}))
-
-// ToDO: change to express
-// app.use("/*", function (req, res, next) {
-//   serveStatic("public", {"index": ["not-found.html", "not-found.htm"]})
-//   next();
-// });
-
 app.listen(8888, function() {
   console.log("Acesse: http://localhost:8888")
 });
