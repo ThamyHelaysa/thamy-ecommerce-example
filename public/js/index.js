@@ -98,6 +98,7 @@ if(buttonList){
 // Listen button event
 window.addEventListener("change:listing", ({detail}) => {
   var previousData = document.querySelector("list-products").getAttribute("class");
+  document.querySelector(".products-listing").classList.replace(previousData, detail.value);
   document.querySelector("list-products").classList.replace(previousData, detail.value);
 });
 

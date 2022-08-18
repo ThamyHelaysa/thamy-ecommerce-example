@@ -10,3 +10,26 @@
 
 .content
   grid-column 2 / 3
+
+.toolbar 
+  display: flex
+  justify-content: space-between
+  > .modes
+    display: flex
+    align-items: center
+    .btn
+      color: primary
+    .ico
+      color: inherit
+    .ico-grid
+      width: 20px
+      height: 20px
+    .ico-list
+      width: 40px
+      height: 40px
+  .list & .btn-grid,
+  .grid & .btn-list
+    color: secondary
+  .grid & .btn-grid,
+  .list & .btn-list
+    cursor: default

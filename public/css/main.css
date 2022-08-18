@@ -249,6 +249,7 @@ span {
 }
 nav-categories {
   position: relative;
+  height: 54px;
 }
 nav-categories::after {
   position: absolute;
@@ -296,4 +297,34 @@ nav-categories::after {
 }
 .content {
   grid-column: 2/3;
+}
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+.toolbar > .modes {
+  display: flex;
+  align-items: center;
+}
+.toolbar > .modes .btn {
+  color: #cb0d1f;
+}
+.toolbar > .modes .ico {
+  color: inherit;
+}
+.toolbar > .modes .ico-grid {
+  width: 20px;
+  height: 20px;
+}
+.toolbar > .modes .ico-list {
+  width: 40px;
+  height: 40px;
+}
+.list .toolbar .btn-grid,
+.grid .toolbar .btn-list {
+  color: #00a8a9;
+}
+.grid .toolbar .btn-grid,
+.list .toolbar .btn-list {
+  cursor: default;
 }
