@@ -1,8 +1,9 @@
 import NavCategories from "./components/navigation.js"
 import SearchForm from "./components/search-form.js"
 import FilterSidebar from "./components/filters.js";
-import ListButton from "./components/list-button.js";
+import ToolbarMode from "./components/toolbar-mode.js";
 import ListProducts from "./components/list-products.js";
+import ToolbarSorter from "./components/toolbar-sorter.js";
 
 // Services
 import categories from "./services/categories.js";
@@ -88,19 +89,25 @@ if(filters){
   defineCustomElements("filter-sidebar", FilterSidebar);
 }
 
-// List Button
-const buttonList = document.querySelector("[is='list-button']");
+// ToolbarMode Button
+const buttonList = document.querySelector("[is='toolbar-mode']");
 
 if(buttonList){
-  defineCustomElements("list-button", ListButton, {extends: "button"});
+  defineCustomElements("toolbar-mode", ToolbarMode, {extends: "button"});
 }
 
-// Listen button event
+// Listen ToolbarMode button event
 window.addEventListener("change:listing", ({detail}) => {
   var previousData = document.querySelector("list-products").getAttribute("class");
   document.querySelector(".products-listing").classList.replace(previousData, detail.value);
   document.querySelector("list-products").classList.replace(previousData, detail.value);
 });
+
+// ToolbarSorter Select
+var toolbarSorter = document.querySelector("toolbar-sorter")
+if (toolbarSorter){
+  defineCustomElements("toolbar-sorter", ToolbarSorter);
+}
 
 // Categorie Products
 const listProducts = document.querySelector("list-products");

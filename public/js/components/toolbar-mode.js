@@ -1,4 +1,4 @@
-export default class ListButton extends HTMLButtonElement {
+export default class ToolbarMode extends HTMLButtonElement {
   constructor(){
     super();
 
