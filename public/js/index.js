@@ -109,6 +109,10 @@ if (toolbarSorter){
   defineCustomElements("toolbar-sorter", ToolbarSorter);
 }
 
+window.addEventListener("sort:list", ({detail}) => {
+  document.querySelector("list-products").setAttribute("data-sorted", detail.value);
+})
+
 // Categorie Products
 const listProducts = document.querySelector("list-products");
 if (listProducts){

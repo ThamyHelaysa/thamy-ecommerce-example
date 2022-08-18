@@ -1,5 +1,6 @@
 import categories from "../services/categories.js";
 import products from "../services/products.js";
+import sortHandler from "../handler/sort-handler.js";
 
 export default class ListProducts extends HTMLElement {
 
@@ -44,7 +45,6 @@ export default class ListProducts extends HTMLElement {
     NProgress.done();
 
     this.productsFormated = this.renderProducts(this.products);
-    console.log(this.productsFormated)
     // this.products.forEach((prod)=>{
     //   var prodSpecial = prod.specialPrice
     //   var item = `
@@ -134,13 +134,23 @@ export default class ListProducts extends HTMLElement {
     return list
   }
 
+  sortProducts(val){
+    this.productsSort = this.products;
+    this.productsSort.sort(sortHandler[val]);
+    return this.productsSort
+  }
+
   /**
    * Only called for the required and readonly attributes
    * due to observedAttributes
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    if (name == "data-filtered"){
-      console.log(newValue)
+    if (name == "data-sorted"){
+      NProgress.start();
+      const sorting = this.sortProducts(newValue);
+      this.newSortingTemplate = this.renderProducts(sorting);
+      this.shadowRoot.children[0].children[0].innerHTML = this.newSortingTemplate;
+      NProgress.done();
     }
   }
 
