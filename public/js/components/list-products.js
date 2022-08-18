@@ -34,6 +34,7 @@ export default class ListProducts extends HTMLElement {
 
     this.productsFormated = ""
     this.products.forEach((prod)=>{
+      var prodSpecial = prod.specialPrice
       var item = `
         <li class="product-item">
           <div class="product-box">
@@ -43,8 +44,12 @@ export default class ListProducts extends HTMLElement {
             <div class="product-info">
               <div class="product-name"><span class="text">${prod.name}</span></div>
               <div class="price-box">
-                <div class="price">R$${prod.price}</div>
-                <div class="special-price"></div>
+                <div class="${prodSpecial ? "old-" : ""}price">R$${prod.price}</div>
+                ${ prodSpecial ?
+                  "<div class='special-price'></div>"
+                  :
+                  ""
+                }
               </div>
             </div>
             <div class="product-action">
@@ -56,7 +61,7 @@ export default class ListProducts extends HTMLElement {
       this.productsFormated += item
     })
 
-    
+    this.shadowRoot.children[0].children[0].innerHTML = this.productsFormated;
 
   }
 
