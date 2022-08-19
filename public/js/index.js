@@ -11,7 +11,6 @@ import dataAPI from "./handler/storage.js";
 import categories from "./services/categories.js";
 
 const currentCategory = document.querySelector("meta[name='category']")?.getAttribute("content");
-console.log({currentCategory});
 var localData = localStorage.category && JSON.parse(localStorage.category);
 // Init Storage
 if (currentCategory && (!localData || currentCategory != localData.name)){
@@ -136,10 +135,6 @@ if(filters){
   defineCustomElements("swatches-button", Swatches, {extends: "button"});
 }
 
-window.addEventListener("swatch:selected", ({detail})=>{
-  console.log(detail)
-})
-
 // ToolbarMode Button
 const buttonList = document.querySelector("[is='toolbar-mode']");
 
@@ -160,8 +155,18 @@ if (toolbarSorter){
   defineCustomElements("toolbar-sorter", ToolbarSorter);
 }
 
+var setDataListProducts = (attr, val) => {
+  document.querySelector("list-products").setAttribute(attr, val);
+}
+
 window.addEventListener("sort:list", ({detail}) => {
   document.querySelector("list-products").setAttribute("data-sorted", detail.value);
+})
+
+window.addEventListener("swatch:selected", ({detail})=>{
+  console.log(detail)
+  setDataListProducts("data-filtered", detail.value)
+  // document.querySelector("list-products").setAttribute("data-sorted", detail.value);
 })
 
 // Categorie Products

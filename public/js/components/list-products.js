@@ -1,4 +1,5 @@
 import sortHandler from "../handler/sort-handler.js";
+import filterHandler from "../handler/filter-handler.js";
 
 export default class ListProducts extends HTMLElement {
 
@@ -12,6 +13,9 @@ export default class ListProducts extends HTMLElement {
     this.category = JSON.parse(localStorage.category);
     this.products = JSON.parse(localStorage.products).items;
 
+    // Not changing products
+    this._products = JSON.parse(localStorage.products).items;
+
     // Get template tag
     this.tmplID = this.getAttribute("data-id");
     this.templateStyle = document.getElementById(this.tmplID);
@@ -21,7 +25,6 @@ export default class ListProducts extends HTMLElement {
     shadowRoot.innerHTML = `
       <div class="products">
         <ul class="products-list">
-          
         </ul>
       </div>
     `
@@ -32,17 +35,7 @@ export default class ListProducts extends HTMLElement {
 
   async connectedCallback(){
 
-    // Get categorie and find current
-    // this.catList = await this.getCategoriesList();
-    // this.catItem = this.catList.find((cat)=>{
-    //   return cat.path == this.categorie
-    // })
     this.catId = this.category.id;
-
-    // Get categorie products of current categorie
-    // this.catProductsData = await this.getCategorieProds(this.catId);
-    // this.catFilters = this.catProductsData.filters;
-    // this.products = this.catProductsData.items;
 
     NProgress.start();
     this.productsFormated = this.renderProducts(this.products);
@@ -91,9 +84,15 @@ export default class ListProducts extends HTMLElement {
    * @returns Array sorted list
    */
   sortProducts(val){
-    this.productsSort = this.products;
-    this.productsSort.sort(sortHandler[val]);
-    return this.productsSort
+    // this.productsSort = this.products;
+    this.products.sort(sortHandler[val]);
+    return this.products
+  }
+
+  filterProducts(val){
+    let oldProds = this._products;
+    let [ attr, value ] = val.split(/:/);
+    return oldProds.filter(filterHandler[attr](value));
   }
 
   /**
@@ -109,6 +108,13 @@ export default class ListProducts extends HTMLElement {
       const sorting = this.sortProducts(newValue);
       this.newSortingTemplate = this.renderProducts(sorting);
       this.shadowRoot.children[0].children[0].innerHTML = this.newSortingTemplate;
+      NProgress.done();
+    } else if (name == "data-filtered" && newValue){
+      NProgress.start();
+      const filtered = this.filterProducts(newValue);
+      this.newFilteredTemplate = this.renderProducts(filtered);
+      this.shadowRoot.children[0].children[0].innerHTML = this.newFilteredTemplate;
+      this.products = filtered
       NProgress.done();
     }
   }

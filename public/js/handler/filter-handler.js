@@ -1,6 +1,8 @@
 const filterHandler = {
-  "Cor": (a) => {
-    return a
+  "color": (a) => {
+    return (p) => {
+      return p.filter[0].color == a
+    }
   }
 }
 
