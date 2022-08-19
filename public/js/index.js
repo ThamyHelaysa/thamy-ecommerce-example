@@ -10,27 +10,29 @@ import Swatches from "./components/filters-swatches.js";
 import dataAPI from "./handler/storage.js";
 import categories from "./services/categories.js";
 
-const currentCategory = document.querySelector("meta[name='category']").getAttribute("content");
-
+const currentCategory = document.querySelector("meta[name='category']")?.getAttribute("content");
+console.log({currentCategory});
+var localData = localStorage.category && JSON.parse(localStorage.category);
 // Init Storage
-if (currentCategory){
+if (currentCategory && (!localData || currentCategory != localData.name)){
+  localData = null;
   setStorage();
+} else {
+  window.dispatchEvent(new CustomEvent("localstorage:loaded", {detail: "ok"}));
 }
 
 async function setStorage(){
-  var catList = await dataAPI.getCategorie();
-  console.log("load when defined");
-  console.table(catList);
-
+  const catList = await dataAPI.getCategorie();
   const catDATA = catList.items.find((cat)=>{
     return cat.name == currentCategory
   });
+  const catProducts = await dataAPI.getProducts(catDATA.id);
 
-  localStorage.setItem("categoria", JSON.stringify(catDATA));
+  localStorage.setItem("categories", JSON.stringify(catList));
+  localStorage.setItem("category", JSON.stringify(catDATA));
+  localStorage.setItem("products", JSON.stringify(catProducts));
 
-  var catProducts = await dataAPI.getProducts(catDATA.id);
-
-  localStorage.setItem("produtos", JSON.stringify(catProducts));
+  window.dispatchEvent(new CustomEvent("localstorage:loaded", {detail: "ok"}));
 }
 
 /**
@@ -54,9 +56,9 @@ async function getCategoriesItems(){
  * and transform the data to set to the shadowDOM
  * @returns Template Items
  */
-async function attachToShadowDom(){
+function attachToShadowDom(){
 
-  var list = await getCategoriesItems();
+  var list = JSON.parse(localStorage.categories).items //await getCategoriesItems();
 
   var templateItems = "";
   list.forEach(el => {
@@ -72,21 +74,40 @@ async function attachToShadowDom(){
   return templateItems;
 }
 
+
+
 function defineCustomElements(str, el, obj){
-  return obj ? customElements.define(`${str}`, el, obj) : customElements.define(`${str}`, el);
+  // Define elements after localStorage
+  if(!localData){
+    window.addEventListener("localstorage:loaded", ()=>{
+      return obj ? customElements.define(`${str}`, el, obj) : customElements.define(`${str}`, el);
+    })
+  } else {
+    return obj ? customElements.define(`${str}`, el, obj) : customElements.define(`${str}`, el);
+  }
 }
+
+var formatedList = {}
+
+if (!localData){
+  // Define elements after localStorage
+  window.addEventListener("localstorage:loaded", ()=>{
+    // Set attribute value for custom element handle
+    formatedList = attachToShadowDom();
+    setDataList("nav-categories");
+  })
+} else {
+  formatedList = attachToShadowDom();
+  setDataList("nav-categories");
+}
+
 
 function setDataList(el){
   document.querySelector(el).setAttribute("data-list", formatedList);
 }
 
-// Set attribute value for custom element handle
-const formatedList = await attachToShadowDom();
-setDataList("nav-categories");
-
 // Now declaring the element
 defineCustomElements("nav-categories", NavCategories);
-
 defineCustomElements("search-form", SearchForm, {extends: "form"});
 
 // Sidebar

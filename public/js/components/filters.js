@@ -6,7 +6,8 @@ export default class FilterSidebar extends HTMLElement {
     super();
 
     const dataID = this.getAttribute("data-id");
-    this.category = this.getAttribute("name");
+    this.category = JSON.parse(localStorage.category);
+    this.products = JSON.parse(localStorage.products).items;
     this.filters = this.sorts = Object.keys(filterHandler);
     console.log(this.filters);
 
@@ -34,9 +35,6 @@ export default class FilterSidebar extends HTMLElement {
 
     const filtersTmpl = this.renderFilters(this.filters);
     this.shadowRoot.children[0].children[2].innerHTML = filtersTmpl;
-
-    this.catProductsData = await this.getFilterOption(this.catId);
-    console.log(this.catProductsData)
     
   }
 
@@ -52,15 +50,6 @@ export default class FilterSidebar extends HTMLElement {
       list += item;
     });
     return list;
-  }
-
-  async getFilterOption(id){
-    try {
-      const res = await products.getProducts(id);
-      return res;
-    } catch(err){
-      throw new Error(`Error getting products: ${err}`);
-    }
   }
 
 }
