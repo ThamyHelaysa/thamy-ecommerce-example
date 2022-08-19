@@ -4,9 +4,34 @@ import FilterSidebar from "./components/filters.js";
 import ToolbarMode from "./components/toolbar-mode.js";
 import ListProducts from "./components/list-products.js";
 import ToolbarSorter from "./components/toolbar-sorter.js";
+import Swatches from "./components/filters-swatches.js";
 
 // Services
+import dataAPI from "./handler/storage.js";
 import categories from "./services/categories.js";
+
+const currentCategory = document.querySelector("meta[name='category']").getAttribute("content");
+
+// Init Storage
+if (currentCategory){
+  setStorage();
+}
+
+async function setStorage(){
+  var catList = await dataAPI.getCategorie();
+  console.log("load when defined");
+  console.table(catList);
+
+  const catDATA = catList.items.find((cat)=>{
+    return cat.name == currentCategory
+  });
+
+  localStorage.setItem("categoria", JSON.stringify(catDATA));
+
+  var catProducts = await dataAPI.getProducts(catDATA.id);
+
+  localStorage.setItem("produtos", JSON.stringify(catProducts));
+}
 
 /**
  * Async function that returns categories items
@@ -87,7 +112,12 @@ const filters = document.querySelector("filter-sidebar");
 
 if(filters){
   defineCustomElements("filter-sidebar", FilterSidebar);
+  defineCustomElements("swatches-button", Swatches, {extends: "button"});
 }
+
+window.addEventListener("swatch:selected", ({detail})=>{
+  console.log(detail)
+})
 
 // ToolbarMode Button
 const buttonList = document.querySelector("[is='toolbar-mode']");

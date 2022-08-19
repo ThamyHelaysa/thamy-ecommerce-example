@@ -29,6 +29,11 @@ export default class ToolbarSorter extends HTMLElement {
     
   }
 
+  /**
+   * Template string with sorting options
+   * to insert in shadowRoot
+   * @returns String
+   */
   renderFilters(){
     var list = ""
     this.sorts.forEach((el)=>{
@@ -40,6 +45,11 @@ export default class ToolbarSorter extends HTMLElement {
     return list;
   }
 
+  /**
+   * Function that triggers a new CustomEvent
+   * to window for other components
+   * @param {String} val Selected value
+   */
   triggerOnChange(val){
     window.dispatchEvent(new CustomEvent("sort:list",{detail: {value: val}}))
   }

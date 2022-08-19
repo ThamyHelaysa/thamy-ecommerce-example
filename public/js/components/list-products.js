@@ -45,30 +45,6 @@ export default class ListProducts extends HTMLElement {
     NProgress.done();
 
     this.productsFormated = this.renderProducts(this.products);
-    // this.products.forEach((prod)=>{
-    //   var prodSpecial = prod.specialPrice
-    //   var item = `
-    //     <li class="product-item">
-    //       <div class="product-box">
-    //         <div class="product-image">
-    //           <img width="196" height="215" src="${prod.image}">
-    //         </div>
-    //         <div class="product-info">
-    //           <div class="product-name"><span class="text">${prod.name}</span></div>
-    //           <div class="price-box">
-    //             <div class="${prodSpecial ? "old-" : ""}price">R$${prod.price}</div>
-    //             ${ prodSpecial ? "<div class='special-price'>R$" + prodSpecial + "</div>" : ""}
-    //           </div>
-    //         </div>
-    //         <div class="product-action">
-    //           <button class="btn-action" type="button">Comprar</button>
-    //         </div>
-    //       </div>
-    //     </li>
-    //   `
-    //   this.productsFormated += item
-    // })
-
     this.shadowRoot.children[0].children[0].innerHTML = this.productsFormated;
 
   }
@@ -134,6 +110,12 @@ export default class ListProducts extends HTMLElement {
     return list
   }
 
+  /**
+   * Method that takes key string
+   * passing callback.
+   * @param {String} val Key function
+   * @returns Array sorted list
+   */
   sortProducts(val){
     this.productsSort = this.products;
     this.productsSort.sort(sortHandler[val]);
@@ -141,11 +123,14 @@ export default class ListProducts extends HTMLElement {
   }
 
   /**
-   * Only called for the required and readonly attributes
-   * due to observedAttributes
+   * Called when an observed attribute has been
+   * added, removed, updated, or replaced.
+   * @param {String} name Attribute name
+   * @param {Any} oldValue Previous value
+   * @param {any} newValue Current value
    */
   attributeChangedCallback(name, oldValue, newValue) {
-    if (name == "data-sorted"){
+    if (name == "data-sorted" && newValue){
       NProgress.start();
       const sorting = this.sortProducts(newValue);
       this.newSortingTemplate = this.renderProducts(sorting);
