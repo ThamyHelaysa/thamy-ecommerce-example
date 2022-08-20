@@ -1,3 +1,6 @@
+/**
+ * Import Custom Elements
+ */
 import NavCategories from "./components/navigation.js"
 import SearchForm from "./components/search-form.js"
 import FilterSidebar from "./components/filters.js";
@@ -6,13 +9,20 @@ import ListProducts from "./components/list-products.js";
 import ToolbarSorter from "./components/toolbar-sorter.js";
 import Swatches from "./components/filters-swatches.js";
 
-// Services
+/**
+ * Import services
+ */
 import dataAPI from "./handler/storage.js";
-import categories from "./services/categories.js";
 
+/**
+ * Gets category and sets to localStorage
+ */
 const currentCategory = document.querySelector("meta[name='category']")?.getAttribute("content");
 var localData = localStorage.category && JSON.parse(localStorage.category);
-// Init Storage
+
+/**
+ * Sets localStorage based on previous data
+ */
 if (currentCategory && (!localData || currentCategory != localData.name)){
   localData = null;
   setStorage();
@@ -20,6 +30,9 @@ if (currentCategory && (!localData || currentCategory != localData.name)){
   window.dispatchEvent(new CustomEvent("localstorage:loaded", {detail: "ok"}));
 }
 
+/**
+ * @description Sets data to localStorage
+ */
 async function setStorage(){
   const catList = await dataAPI.getCategorie();
   const catDATA = catList.items.find((cat)=>{
@@ -35,30 +48,14 @@ async function setStorage(){
 }
 
 /**
- * Async function that returns categories items
- * from categories service
- * @returns List Items
- */
-async function getCategoriesItems(){
-  var list = ""
-  try {
-    const res = await categories.getCategories();
-    list = res.items;
-  } catch(err){
-    throw new Error(`Fail get categories: ${err}`);
-  }
-  return list
-}
-
-/**
- * Async function that gets categories items
- * and transform the data to set to the shadowDOM
+ * Gets categories items
+ * and transform the data to string
+ * for set element shadowDOM
  * @returns Template Items
  */
 function attachToShadowDom(){
 
-  var list = JSON.parse(localStorage.categories).items //await getCategoriesItems();
-
+  var list = JSON.parse(localStorage.categories).items;
   var templateItems = "";
   list.forEach(el => {
     var renderedItem = `
@@ -74,7 +71,13 @@ function attachToShadowDom(){
 }
 
 
-
+/**
+ * Define custom constructor
+ * @param {String} str Element tag name
+ * @param {CustomElementConstructor} el Element
+ * @param {ElementDefinitionOptions | undefined} obj Element HTML type
+ * @returns Define function
+ */
 function defineCustomElements(str, el, obj){
   // Define elements after localStorage
   if(!localData){
@@ -86,8 +89,8 @@ function defineCustomElements(str, el, obj){
   }
 }
 
-var formatedList = {}
 
+var formatedList = {}
 if (!localData){
   // Define elements after localStorage
   window.addEventListener("localstorage:loaded", ()=>{
@@ -100,17 +103,26 @@ if (!localData){
   setDataList("nav-categories");
 }
 
-
+/**
+ * Sets custom attribute to passed
+ * element
+ * @param {any} el Element selector
+ */
 function setDataList(el){
   document.querySelector(el).setAttribute("data-list", formatedList);
 }
 
-// Now declaring the element
+/**
+ * Defining:
+ * Custom nav and search Elements
+ */
 defineCustomElements("nav-categories", NavCategories);
 defineCustomElements("search-form", SearchForm, {extends: "form"});
 
-// Sidebar
-// Set sidebar extending NavCat
+/**
+ * Sidebar
+ * Set sidebar extending NavCategories
+ */
 class ListSidebar extends NavCategories {
   constructor(){
     super();
@@ -118,6 +130,10 @@ class ListSidebar extends NavCategories {
 }
 const sidebar = document.querySelector("list-sidebar");
 
+/**
+ * Custom define handler for sidebar
+ * new navigation
+ */
 function initListSidebar(){
   setDataList("list-sidebar");
   defineCustomElements("list-sidebar", ListSidebar);
@@ -127,7 +143,9 @@ if (sidebar){
   initListSidebar();
 }
 
-// Filters
+/**
+ * Filters
+ */
 const filters = document.querySelector("filter-sidebar");
 
 if(filters){
@@ -135,41 +153,54 @@ if(filters){
   defineCustomElements("swatches-button", Swatches, {extends: "button"});
 }
 
-// ToolbarMode Button
+/**
+ * Toolbar Mode Button
+ */
 const buttonList = document.querySelector("[is='toolbar-mode']");
 
 if(buttonList){
   defineCustomElements("toolbar-mode", ToolbarMode, {extends: "button"});
 }
 
-// Listen ToolbarMode button event
+/**
+ * Toobar Mode Button CustomEvent
+ */
 window.addEventListener("change:listing", ({detail}) => {
   var previousData = document.querySelector("list-products").getAttribute("class");
   document.querySelector(".products-listing").classList.replace(previousData, detail.value);
   document.querySelector("list-products").classList.replace(previousData, detail.value);
 });
 
-// ToolbarSorter Select
+/**
+ * Toolbar Sorter Element
+ */
 var toolbarSorter = document.querySelector("toolbar-sorter")
 if (toolbarSorter){
   defineCustomElements("toolbar-sorter", ToolbarSorter);
 }
 
+/**
+ * Sets attribute to list-product element
+ * 
+ * @param {String} attr Custom element Tag
+ * @param {any} val Custom element Tag value
+ */
 var setDataListProducts = (attr, val) => {
   document.querySelector("list-products").setAttribute(attr, val);
 }
 
 window.addEventListener("sort:list", ({detail}) => {
-  document.querySelector("list-products").setAttribute("data-sorted", detail.value);
+  setDataListProducts("data-sorted", detail.value)
 })
 
 window.addEventListener("swatch:selected", ({detail})=>{
   console.log(detail)
   setDataListProducts("data-filtered", detail.value)
-  // document.querySelector("list-products").setAttribute("data-sorted", detail.value);
 })
 
-// Categorie Products
+/**
+ * Products List Custom Element
+ */
 const listProducts = document.querySelector("list-products");
 if (listProducts){
   defineCustomElements("list-products", ListProducts);
