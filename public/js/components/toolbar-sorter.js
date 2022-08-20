@@ -16,7 +16,12 @@ export default class ToolbarSorter extends HTMLElement {
         <div class="title">Ordenar Por</div>
         <style>
           :host {
-            flex: 0 1 35%;
+            flex: 0 1 40%;
+          }
+          @media (max-width: 768px){
+            :host {
+              flex: 1 auto;
+            }
           }
           .toolbar-sorter {
             display: flex;
@@ -40,7 +45,7 @@ export default class ToolbarSorter extends HTMLElement {
             font-family: inherit;
             padding: 4px 8px 4px 13px;
             background-color: #FFFFFF;
-            background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='#8E8E8E' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M17.96 7.77L12 13.73L6.03998 7.76C4.93998 6.66 3.24998 8.34 4.35998 9.45L11.16 16.25C11.63 16.72 12.38 16.72 12.85 16.25L19.65 9.45C20.73 8.35 19.07 6.67 17.96 7.77Z' fill='rgba(0,0,0,0.3)'/%3E%3C/svg%3E%0A");
+            background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M17.96 7.77L12 13.73L6.03998 7.76C4.93998 6.66 3.24998 8.34 4.35998 9.45L11.16 16.25C11.63 16.72 12.38 16.72 12.85 16.25L19.65 9.45C20.73 8.35 19.07 6.67 17.96 7.77Z' fill='rgba(0,0,0,0.3)'/%3E%3C/svg%3E%0A");
             background-repeat: no-repeat;
             background-position: right 8px center;
             background-size: 16px;

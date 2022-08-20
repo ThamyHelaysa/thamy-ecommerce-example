@@ -156,8 +156,14 @@ body {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  gap: 32px 0;
+  row-gap: 32px;
   background-color: #fff;
+  z-index: 1;
+}
+@media (max-width: 568px) {
+  .page-header {
+    justify-content: center;
+  }
 }
 .page-content {
   display: grid;
@@ -166,6 +172,11 @@ body {
   gap: 25px;
   min-height: 80vh;
   padding: 24px 0;
+}
+@media (max-width: 568px) {
+  .page-content {
+    display: block;
+  }
 }
 .page-footer {
   background-color: #cb0d1f;
@@ -197,6 +208,16 @@ span {
   color: #1a1818;
   font-size: 26px;
 }
+.page-title {
+  border-bottom: 1px solid #e2dedc;
+  color: #ed1a39;
+  font-size: 32px;
+}
+@media (max-width: 568px) {
+  .page-title {
+    margin-bottom: 12px;
+  }
+}
 .account {
   position: relative;
   flex: 1 0 100%;
@@ -204,6 +225,12 @@ span {
   padding-bottom: 5px;
   text-align: right;
   z-index: 1;
+}
+@media (max-width: 568px) {
+  .account {
+    text-align: center;
+    order: -1;
+  }
 }
 .account::after {
   position: absolute;
@@ -228,8 +255,24 @@ span {
 .account-box > .link {
   text-decoration: underline;
 }
+@media (max-width: 568px) {
+  .logo {
+    margin: 0 auto;
+  }
+}
 .page-header > .search {
   flex: 0 1 40%;
+}
+@media (max-width: 768px) {
+  .page-header > .search {
+    flex: 1 auto;
+    margin-right: 1rem;
+  }
+}
+@media (max-width: 568px) {
+  .page-header > .search {
+    display: none;
+  }
 }
 .form-search {
   display: flex;
@@ -265,6 +308,18 @@ nav-categories::after {
 .page-header > nav-categories {
   flex: 1 0 100%;
 }
+@media (max-width: 568px) {
+  .page-header > nav-categories {
+    flex: 0;
+    order: -1;
+  }
+  .page-header > nav-categories::before {
+    content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAeklEQVRoge3WOwqAMBBF0auloK3Ls3FX2rg8WwXbWNgJohLiB+6B6YZkwqR4IEmS3pNd6KmABigSz7K3AAMwxR7UA+Gl6s6Gy2Nfl1g4a7jyhUqgBeroce4Z2bY/P3yvJOlHzEKJyywEZiFJ0oeZhRKXWQjMQpIk6dAK8bhyVZq4QQsAAAAASUVORK5CYII=");
+  }
+  .page-header > nav-categories::after {
+    display: none;
+  }
+}
 .breadcrumb {
   padding-top: 24px;
 }
@@ -295,16 +350,37 @@ nav-categories::after {
   padding: 20px 1rem;
   background-color: #e2dedc;
 }
+.cms-category .sidebar {
+  background-color: #fff;
+  border: 1px solid #e2dedc;
+}
+@media (max-width: 568px) {
+  .cms-category .sidebar {
+    margin-bottom: 20px;
+  }
+}
 .content {
   grid-column: 2/3;
 }
 .toolbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 0 2vw;
+}
+@media (max-width: 568px) {
+  .toolbar {
+    margin-bottom: 50px;
+  }
 }
 .toolbar > .modes {
   display: flex;
   align-items: center;
+}
+@media (max-width: 568px) {
+  .toolbar > .modes {
+    display: none;
+  }
 }
 .toolbar > .modes .btn {
   color: #cb0d1f;

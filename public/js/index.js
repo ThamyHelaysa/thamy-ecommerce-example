@@ -150,7 +150,7 @@ const filters = document.querySelector("filter-sidebar");
 
 if(filters){
   defineCustomElements("filter-sidebar", FilterSidebar);
-  defineCustomElements("swatches-button", Swatches, {extends: "button"});
+  defineCustomElements("swatches-button", Swatches, {extends: "input"});
 }
 
 /**

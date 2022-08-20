@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
     <script type="module" src="./js/index.js"></script>
   </head>
-  <body class="cms-home">
+  <body class="cms-category">
     <div class="page-wrapper">
       <header class="page-header">
         <div class="account">
@@ -56,6 +56,11 @@
               justify-content: flex-start;
               gap: 0 4.5vw;
             }
+            @media (max-width: 568px){
+              .list {
+                display: none;
+              }
+            }
           </style>
           <slot></slot>
         </template>
@@ -66,15 +71,63 @@
         <div class="sidebar">
           <template id="filter-tmpl">
             <style>
-              .filters {
-                background-color: #FFFFFF;
-                border: 1px solid #E2DEDC;
+              ul, li {
+                margin: 0;
+                padding: 0;
+                list-style: none;
               }
+              h3 {
+                margin-bottom: 14px;
+              }
+              .title {
+                font-weight: bold;
+                text-transform: uppercase;
+              }
+              .filters > .title {
+                color: #ED1A39;
+                font-size: 24px;
+              }
+              .filter-content > .title {
+                margin-bottom: 12px;
+                color: #1E2B50;
+                font-size: 18px;
+              }
+              .filter-swatch {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+              }
+              input[type="radio"] {
+                width: 0;
+                height: 0;
+                position: absolute;
+                visibility: hidden;
+                opacity: 0;
+              }
+              input[type="radio"]:not(:checked) + label {
+                opacity: .7;
+              }
+              input[type="radio"]:checked + label {
+                opacity: 1;
+              }
+              label {
+                min-width: 48px;
+                height: 24px;
+                display: inline-block;
+              }
+              label[for^="swatch-Pret"] {background-color: #000000;font-size: 0;}
+              label[for^="swatch-Laranja"] {background-color: #F26324;font-size: 0;}
+              label[for^="swatch-Amarel"] {background-color: #FFFF00;font-size: 0;}
+              label[for^="swatch-Rosa"] {background-color: #FF007F;font-size: 0;}
+              label[for^="swatch-Azul"] {background-color: blue;font-size: 0;}
+              label[for^="swatch-Cinza"] {background-color: #626262;font-size: 0;}
+              label[for^="swatch-Bege"] {background-color: #F5F5DC;font-size: 0;}
             </style>
           </template>
           <filter-sidebar name="calcados" data-id="filter-tmpl"></filter-sidebar>
         </div>
         <div class="content">
+          <h3 class="page-title">Calçados</h3>
           <div class="products-listing grid">
             <div class="toolbar">
               <div class="modes">

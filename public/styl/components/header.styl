@@ -6,6 +6,10 @@
   padding-bottom 5px
   text-align right
   z-index 1
+  @media (max-width:568px){
+    text-align: center
+    order -1
+  }
   &::after
     bg-full(#231F20)
     content ''
@@ -21,10 +25,23 @@
   > .link
     text-decoration underline
 
+// Logo
+.logo
+  @media (max-width: 568px){
+    margin 0 auto
+  }
+
 // Search
 .search
   .page-header > &
     flex 0 1 40%
+    @media(max-width: 768px){
+      flex: 1 auto
+      margin-left: 1rem
+    }
+    @media(max-width: 568px){
+      display none
+    }
 
 .form-search
   display flex
@@ -51,5 +68,13 @@ nav-categories
     
   .page-header > &
     flex 1 0 100%
-
-
+    @media (max-width:568px){
+      flex 0
+      order: -1
+      &::before {
+        content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAeklEQVRoge3WOwqAMBBF0auloK3Ls3FX2rg8WwXbWNgJohLiB+6B6YZkwqR4IEmS3pNd6KmABigSz7K3AAMwxR7UA+Gl6s6Gy2Nfl1g4a7jyhUqgBeroce4Z2bY/P3yvJOlHzEKJyywEZiFJ0oeZhRKXWQjMQpIk6dAK8bhyVZq4QQsAAAAASUVORK5CYII=")
+      }
+      &::after{
+        display none
+      }
+    }

@@ -16,8 +16,6 @@ export default class FilterSidebar extends HTMLElement {
         <div class="title">
           <h3>Filtre Por</h3>
         </div>
-        <div class="filtered">
-        </div>
         <div class="filters-list list">
         </div>
       </div>
@@ -33,7 +31,7 @@ export default class FilterSidebar extends HTMLElement {
     var buttons = this.renderSwatchButtons(filterValues);
 
     const filtersTmpl = this.renderFilters(this.filters, buttons);
-    this.shadowRoot.children[0].children[2].innerHTML = filtersTmpl;
+    this.shadowRoot.children[0].children[1].innerHTML = filtersTmpl;
 
   }
 
@@ -41,10 +39,12 @@ export default class FilterSidebar extends HTMLElement {
     var list = "";
     data.forEach(cat => {
       var item = `
-      <ul class="filter-content">
-        <div class="filter-title">${cat.color}</div>
-        ${btns}
-      </ul>
+      <div class="filter-content">
+        <div class="filter-title title">${cat.color || cat.gender}</div>
+        <ul class="filter-list">
+          ${btns}
+        </ul>
+      </div>
       `
       list += item;
     });
@@ -69,14 +69,20 @@ export default class FilterSidebar extends HTMLElement {
   renderSwatchButtons(obj){
     var list = ""
     var objKey = Object.keys(obj)
-    obj.color.forEach((el) => {
-      var item = `
-         <li class="filter-swatch">
-           <button is="swatches-button" data-filter="${objKey[0]}:${el}">${el}</button>
-         </li>
-       `
-       list += item
+
+    objKey.forEach((key)=>{
+      obj[key].forEach((el, index) => {
+        var item = `
+           <li class="filter-swatch">
+              <input id="swatch-${index}" type="radio" is="swatches-button" name="swatch-input" data-filter="${key}:${el}" />
+              <label for="swatch-${index}">${el}</label>
+           </li>
+         `
+         list += item
+      })
     })
+
+    
     return list
   }
 

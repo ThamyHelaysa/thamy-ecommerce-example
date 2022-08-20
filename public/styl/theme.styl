@@ -22,8 +22,12 @@ body
   display flex
   flex-flow row wrap
   justify-content space-between
-  gap 32px 0
+  row-gap 32px
   background-color brightness
+  z-index: 1
+  @media (max-width: 568px){
+    justify-content: center
+  }
 
 .page-content
   display grid
@@ -32,6 +36,9 @@ body
   gap 25px
   min-height 80vh
   padding 24px 0
+  @media (max-width: 568px){
+    display: block
+  }
 
 .page-footer
   bg-primary()
@@ -62,3 +69,11 @@ p, span
   margin-block-end .5rem
   color darkness
   font-size 26px
+
+.page-title 
+  border-bottom 1px solid snow
+  color primary-light
+  font-size 32px
+  @media (max-width: 568px){
+    margin-bottom 12px
+  }
