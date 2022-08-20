@@ -1,5 +1,5 @@
 # WebJump Front-end Test
-Repositório contendo um preview funcional da uma loja.
+Repositório contendo um preview funcional de uma loja.
 
 ![Layout](assets/preview.jpg)
 
