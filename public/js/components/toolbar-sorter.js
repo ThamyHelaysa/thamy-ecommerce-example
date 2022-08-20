@@ -13,6 +13,20 @@ export default class ToolbarSorter extends HTMLElement {
 
     shadowRoot.innerHTML = `
       <div class="toolbar-sorter">
+        <div class="title">Ordenar Por</div>
+        <style>
+          .toolbar-sorter {
+            display: flex;
+            align-items: center;
+          }
+          .title {
+            margin-right: 13px;
+            color: #808185;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+          }
+        </style>
       </div>
     `
 
