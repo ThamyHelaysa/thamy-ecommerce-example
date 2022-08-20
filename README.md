@@ -19,7 +19,7 @@ Repositório contendo um preview funcional da uma loja.
 
 ## Servidor
 
-Localizado na raiz do projeto, o arquivo [`app.js`](/app.js) utiliza o `Node` para implementar o ambiente para o projeto. A única modificação do arquivo foi a inclusão de uma função para criar rotas dinâmicas baseadas em um `array`
+Localizado na raiz do projeto, o arquivo [`app.js`](/app.js) utiliza o `Node` para implementar o ambiente para o projeto. A única modificação do arquivo foi a inclusão de uma função para criar rotas dinâmicas baseadas em um `array`.
 
 ## Páginas
 
@@ -116,4 +116,4 @@ async function setStorage(){
 
 #### Serviços
 
-Disponíveis em `./public/js/services` estão os arquivos responsáveis por fazer as requisições para a API
+Disponíveis em `./public/js/services` estão os arquivos responsáveis por fazer as requisições para a API.
