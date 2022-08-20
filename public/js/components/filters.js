@@ -6,8 +6,6 @@ export default class FilterSidebar extends HTMLElement {
     this.category = JSON.parse(localStorage.category);
     this.products = JSON.parse(localStorage.products).items;
     this.filters = JSON.parse(localStorage.products).filters;
-    // this.filters = Object.keys(filterHandler);
-    // console.log(this.filters);
 
     // Get data template
     const dataTemplate = document.getElementById(dataID);
