@@ -1,7 +1,7 @@
 {
   "name": "assessment-frontend",
   "version": "1.0.0",
-  "description": "Criamos este teste para avaliar seus conhecimentos e habilidades frontend (HTML, CSS e JavaScript).",
+  "description": "Um exemplo de uso de webcomponents e APIs",
   "main": "app.js",
   "dependencies": {
     "connect": "~3.6.6",

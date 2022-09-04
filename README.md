@@ -1,4 +1,4 @@
-# WebJump Front-end Test
+# Thamys Ecommerce
 Repositório contendo um preview funcional de uma loja.
 
 ![Layout](assets/preview.jpg)

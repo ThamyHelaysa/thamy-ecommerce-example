@@ -21,13 +21,22 @@ const currentCategory = document.querySelector("meta[name='category']")?.getAttr
 var localData = localStorage.category && JSON.parse(localStorage.category);
 
 /**
+ * Dispatch event
+ */
+function dispatchStorageEvent(){
+  window.dispatchEvent(new CustomEvent("localstorage:loaded", {detail: "ok"}));
+}
+
+/**
  * Sets localStorage based on previous data
  */
 if (currentCategory && (!localData || currentCategory != localData.name)){
   localData = null;
   setStorage();
 } else {
-  window.dispatchEvent(new CustomEvent("localstorage:loaded", {detail: "ok"}));
+  setTimeout(()=>{
+    dispatchStorageEvent();
+  }, 1500)
 }
 
 /**
@@ -44,7 +53,8 @@ async function setStorage(){
   localStorage.setItem("category", JSON.stringify(catDATA));
   localStorage.setItem("products", JSON.stringify(catProducts));
 
-  window.dispatchEvent(new CustomEvent("localstorage:loaded", {detail: "ok"}));
+  dispatchStorageEvent();
+  //window.dispatchEvent(new CustomEvent("localstorage:loaded", {detail: "ok"}));
 }
 
 /**
@@ -80,13 +90,9 @@ function attachToShadowDom(){
  */
 function defineCustomElements(str, el, obj){
   // Define elements after localStorage
-  if(!localData){
-    window.addEventListener("localstorage:loaded", ()=>{
-      return obj ? customElements.define(`${str}`, el, obj) : customElements.define(`${str}`, el);
-    })
-  } else {
+  window.addEventListener("localstorage:loaded", ()=>{
     return obj ? customElements.define(`${str}`, el, obj) : customElements.define(`${str}`, el);
-  }
+  })
 }
 
 
