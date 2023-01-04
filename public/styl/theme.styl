@@ -1,16 +1,56 @@
+:root {
+  --ON: initial
+  --OFF: ()
+}
+
+
+/* Light theme is on by default */
+.theme-default,
+.theme-light {
+  --light: var(--ON);
+  --dark: var(--OFF);
+}
+
+/* Dark theme is off by default */
+.theme-dark {
+  --light: var(--OFF);
+  --dark: var(--ON);
+}
+
+/* If user prefers dark, then that's what they'll get */
+@media (prefers-color-scheme: dark) {
+  .theme-default {
+    --light: var(--OFF);
+    --dark: var(--ON);
+  }
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  src: url('../media/fonts/Inter-VariableFont_slnt,wght.ttf');
+}
+
 html,
 body
   width 100%
   height 100%
-  background-color bg
-  color darker-snow
-  font-family 'Open Sans', sans-serif
+  font-family 'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji
   font-size 16px
   overflow-x hidden
+  line-height: 1.75
+
+body
+  background-color theme-color( light-background-third,  dark-background-secondary);
+  color theme-color(light-text, dark-text);
+  transition background-color 300ms ease
 
 .page-wrapper
   position relative
   padding-bottom 30px
+  padding-left: 1.2rem
+  padding-right: 1.2rem
   @media (max-width: 1024px)
     padding 0 20px 20px
   > * 
@@ -21,27 +61,56 @@ body
   top 0
   display flex
   flex-flow row wrap
+  align-items center
   justify-content space-between
-  row-gap 32px
-  background-color brightness
+  column-gap 32px
+  padding-top 10px
+  padding-bottom: 10px
+  padding-left: 10px
+  padding-right: 10px
+  background-color theme-color( light-background-secondary,  dark-background-third);
   z-index: 1
+  &::before
+    position absolute
+    content ""
+    top 0
+    left 50%
+    width 100vw
+    height 100%
+    background-color: theme-color( light-background-secondary,  dark-background-third);
+    transform translateX(-50%)
+    z-index: -1
+  &::after
+    position absolute
+    content ""
+    top 100%
+    left 50%
+    width 100vw
+    height 3px
+    background-color #FF0099;
+    background-image linear-gradient(to left, #CCFFFF, #6699FF, #333399, #9933FF, #FF0099);
+    background-size 100% 3px
+    transform translateX(-50%)
+  @media (max-width: 1024px){
+    padding-left: 0
+    padding-right: 0
+  }
   @media (max-width: 568px){
     justify-content: center
   }
 
 .page-content
-  display grid
-  grid-template-columns 1fr 2fr
-  grid-template-rows repeat(2,1fr)
+  display flex
   gap 25px
   min-height 80vh
-  padding 24px 0
+  padding 30px 0
+  border-radius 20px
   @media (max-width: 568px){
     display: block
   }
 
 .page-footer
-  bg-primary()
+  background-color theme-color( light-background-secondary,  dark-background-third);
   height 176px
 
 nav-categories
@@ -62,18 +131,28 @@ button,
 
 .text,
 p, span
-  color darkness
+  column-count: 2
+  color inherit
   font-family inherit
+  transition color 200ms ease
+
+a, .link
+  transition: color 200ms ease
 
 .title
   margin-block-end .5rem
-  color darkness
+  color theme-color( darkness,  snow);
   font-size 26px
+  font-weight: theme-weight(900,800)
+  transition all 200ms ease
 
-.page-title 
-  border-bottom 1px solid snow
-  color primary-light
+.page-title
+  margin-bottom: 1rem
+  padding: 0 0 5px 0
+  color theme-color( darkness,  snow);
   font-size 32px
+  font-weight: theme-weight(900,800)
+  transition all 200ms ease
   @media (max-width: 568px){
     margin-bottom 12px
   }
