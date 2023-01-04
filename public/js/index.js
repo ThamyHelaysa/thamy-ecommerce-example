@@ -1,7 +1,6 @@
 /**
  * Import Custom Elements
  */
-import NavCategories from "./components/navigation.js"
 import SearchForm from "./components/search-form.js"
 import FilterSidebar from "./components/filters.js";
 import ToolbarMode from "./components/toolbar-mode.js";
@@ -57,29 +56,6 @@ async function setStorage(){
   //window.dispatchEvent(new CustomEvent("localstorage:loaded", {detail: "ok"}));
 }
 
-/**
- * Gets categories items
- * and transform the data to string
- * for set element shadowDOM
- * @returns Template Items
- */
-function attachToShadowDom(){
-
-  var list = JSON.parse(localStorage.categories).items;
-  var templateItems = "";
-  list.forEach(el => {
-    var renderedItem = `
-      <li class="item list-item categories-item">
-        <a href="/${el.path}">
-          ${el.name}
-        </a>
-      </li>
-    `
-    templateItems += renderedItem
-  })
-  return templateItems;
-}
-
 
 /**
  * Define custom constructor
@@ -95,59 +71,11 @@ function defineCustomElements(str, el, obj){
   })
 }
 
-
-var formatedList = {}
-if (!localData){
-  // Define elements after localStorage
-  window.addEventListener("localstorage:loaded", ()=>{
-    // Set attribute value for custom element handle
-    formatedList = attachToShadowDom();
-    setDataList("nav-categories");
-  })
-} else {
-  formatedList = attachToShadowDom();
-  setDataList("nav-categories");
-}
-
-/**
- * Sets custom attribute to passed
- * element
- * @param {any} el Element selector
- */
-function setDataList(el){
-  document.querySelector(el).setAttribute("data-list", formatedList);
-}
-
 /**
  * Defining:
  * Custom nav and search Elements
  */
-defineCustomElements("nav-categories", NavCategories);
 defineCustomElements("search-form", SearchForm, {extends: "form"});
-
-/**
- * Sidebar
- * Set sidebar extending NavCategories
- */
-class ListSidebar extends NavCategories {
-  constructor(){
-    super();
-  }
-}
-const sidebar = document.querySelector("list-sidebar");
-
-/**
- * Custom define handler for sidebar
- * new navigation
- */
-function initListSidebar(){
-  setDataList("list-sidebar");
-  defineCustomElements("list-sidebar", ListSidebar);
-}
-
-if (sidebar){
-  initListSidebar();
-}
 
 /**
  * Filters
@@ -211,3 +139,4 @@ const listProducts = document.querySelector("list-products");
 if (listProducts){
   defineCustomElements("list-products", ListProducts);
 }
+

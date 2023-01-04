@@ -1,30 +1,3 @@
-// Account
-.account
-  position relative
-  flex 1 0 100%
-  padding-top 5px
-  padding-bottom 5px
-  text-align right
-  z-index 1
-  @media (max-width:568px){
-    text-align: center
-    order -1
-  }
-  &::after
-    bg-full(#231F20)
-    content ''
-    z-index -1
-
-.account-box
-  align-items baseline
-  color brightness
-  font-size 14px
-  gap 0 5px
-  .account > &
-    display inline-flex
-  > .link
-    text-decoration underline
-
 // Logo
 .logo
   @media (max-width: 568px){
@@ -34,7 +7,6 @@
 // Search
 .search
   .page-header > &
-    flex 0 1 40%
     @media(max-width: 768px){
       flex: 1 auto
       margin-left: 1rem
@@ -44,37 +16,50 @@
     }
 
 .form-search
+  position relative
   display flex
   > .input
     width 100%
+    height: 30px
     padding 0 .8rem
-    border 1px solid dark-snow
+    background-color theme-color( light-background-third,  dark-background-primary);
+    border none
+    border-radius 30px
+    color theme-color( primary,  secondary);
+    transition: all 200ms ease
   > .btn-search
-    padding 0 22px
-    height 44px
-    background-color primary
-    color brightness
-    font-weight bold
-    text-transform uppercase
+    position: absolute
+    right: 7px
+    top: 4px
+    img
+      width 25px
+
+// Toggle Button
+bt-filter = brightness(0.5) grayscale(1)
+
+.toggle-theme
+  flex-center()
+  > .btn-togglemode
+    filter filter-toggle(bt-filter)
+    transition filter 200ms ease
+    // .theme-dark &
+    //   filter: filter-toggle() //brightness(0.5) grayscale(1)
+    img 
+      width: 33px
 
 // Categories
-nav-categories
-  position relative
-  height 54px
-  &::after
-    bg-full(primary)
-    content ''
-    z-index -1
-    
+.navigation
+  margin-left: auto
   .page-header > &
-    flex 1 0 100%
     @media (max-width:568px){
       flex 0
       order: -1
-      &::before {
-        content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAeklEQVRoge3WOwqAMBBF0auloK3Ls3FX2rg8WwXbWNgJohLiB+6B6YZkwqR4IEmS3pNd6KmABigSz7K3AAMwxR7UA+Gl6s6Gy2Nfl1g4a7jyhUqgBeroce4Z2bY/P3yvJOlHzEKJyywEZiFJ0oeZhRKXWQjMQpIk6dAK8bhyVZq4QQsAAAAASUVORK5CYII=")
-      }
-      &::after{
-        display none
-      }
     }
+  > .list
+    display: flex
+    align-items: center
+    gap 0 30px
+    color theme-color( light-text,  dark-text);
+    font-weight: 700
+  .item:hover > a
+      color theme-color( primary,  secondary);

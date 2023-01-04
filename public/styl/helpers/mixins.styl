@@ -3,8 +3,10 @@ max-container()
   margin-left auto
   margin-right auto
 
-bg-primary()
-  background-color primary
+flex-center()
+  display: flex
+  align-items: center
+  justify-content: center
 
 bg-full(bg)
   position absolute
@@ -15,3 +17,11 @@ bg-full(bg)
   background-color bg
   transform translateX(-50%)
 
+theme-color(l-theme,d-theme)
+  return var(--light, l-theme) var(--dark, d-theme)
+
+theme-weight(l-weight,d-weight)
+  return var(--light, l-weight) var(--dark, d-weight)
+
+filter-toggle(flt)
+  return var(--light, none) var(--dark, flt)

@@ -4,13 +4,57 @@
     <meta charset="UTF-8">
     <meta name="category" content="Calças">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
     <title>Thamy MiniEcommerce - Calças</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preload" href="/media/fonts/Inter-VariableFont_slnt,wght.ttf" as="font" type="font/ttf" crossorigin="">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" media="print" onload="this.media='all'" />
     <noscript>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" />
-    </noscript>
+    </noscript> -->
+    <script>
+
+      /**
+       * After DOM Load setup theme color 
+       */
+      document.addEventListener("DOMContentLoaded", function(event) {
+        
+        // Get local storage data
+        var currentTheme = localStorage.getItem("theme");
+        var themeBodyMode = document.body.classList;
+
+        // Init if localstorage
+        if (currentTheme === "dark") {
+          themeBodyMode.add("theme-dark");
+        } else if (currentTheme === "light") {
+          themeBodyMode.add("theme-light");
+        } else if (!currentTheme || currentTheme === "theme-default"){
+          themeBodyMode.add("theme-default");
+          localStorage.setItem("theme", "theme-default");
+        }
+
+        /**
+         * Set listener to toggle-button
+         */
+        const toggleButton = document.getElementById('toggle-mode');
+        toggleButton.addEventListener("click", () => {
+          var darkMode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          var localTheme = localStorage.getItem("theme");
+          var themeType = themeBodyMode.value.match(/theme-.+\D/);
+          
+          if ((localTheme === "theme-default" && darkMode) || localTheme === "dark"){
+            document.body.classList.replace(themeType[0],"theme-light");
+            var theme = "light"
+          } else {
+            document.body.classList.replace(themeType[0],"theme-dark");
+            var theme = "dark"
+          }
+          localStorage.setItem("theme", theme);
+        })
+      });
+
+    </script>
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css" />
     <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
@@ -19,53 +63,42 @@
   <body class="cms-category">
     <div class="page-wrapper">
       <header class="page-header">
-        <div class="account">
-          <div class="account-box">
-            <a href="/" class="link login">Acesse sua Conta</a>
-            <span class="text">ou</span>
-            <a href="/" class="link register">Cadastre-se</a>
-          </div>
-        </div>
         <div class="logo">
           <a href="/" class="link">
-            <img src="./media/thamy-logo.png" alt="ThamyDev">
+            <img width="150" src="./media/Thamy-Sticker-small-sembg.png" alt="ThamyDev">
           </a>
         </div>
+        <nav class="navigation">
+          <ul class="list">
+            <li class="item list-item home">
+              <a href="/" class="link">Home</a>
+            </li>
+            <li class="item list-item contact">
+              <a href="/camisetas" class="link">Camisetas</a>
+            </li>
+            <li class="item list-item contact">
+              <a href="/calcados" class="link">Calçados</a>
+            </li>
+            <li class="item list-item contact">
+              <a href="/calcas" class="link">Calças</a>
+            </li>
+          </ul>
+        </nav>
         <div class="search">
           <div class="search-box">
             <form id="search-form" method="post" is="search-form" class="form-search">
               <input required class="input input-search" type="search" name="search" id="search">
-              <button class="btn btn-search">Buscar</button>
+              <button class="btn btn-search">
+                <img src="./media/search-ico.png" width="30" alt="Busca"/>
+              </button>
             </form>
           </div>
         </div>
-        <template id="nav-tmpl">
-          <style>
-            ul, li {
-              list-style: none;
-              padding: 0;
-            }
-            a {
-              color: #FFFFFF;
-              font-weight: bold;
-              text-decoration: none;
-              text-transform: uppercase;
-            }
-            .list {
-              display: flex;
-              justify-content: flex-start;
-              gap: 0 4.5vw;
-            }
-            @media (max-width: 568px){
-              .list {
-                display: none;
-              }
-            }
-          </style>
-          <slot></slot>
-        </template>
-        <nav-categories data-id="nav-tmpl" >
-        </nav-categories>
+        <div class="toggle-theme">
+          <button type="button" class="btn btn-togglemode" id="toggle-mode">
+            <img src="./media/sun-sticker.png" alt="Change Theme Color Mode">
+          </button>
+        </div>
       </header>
       <main class="page-content">
         <div class="sidebar">
@@ -80,15 +113,14 @@
               }
               .title {
                 font-weight: bold;
-                text-transform: uppercase;
               }
               .filters > .title {
-                color: #ED1A39;
+                color: #FF0099;
                 font-size: 24px;
               }
               .filter-content > .title {
                 margin-bottom: 12px;
-                color: #1E2B50;
+                color: #1D2671;
                 font-size: 18px;
               }
               .filter-list {padding-left: 20px;}
@@ -141,6 +173,7 @@
                   display: block;
                   max-width: 100%;
                   height: auto;
+                  object-fit: contain;
                 }
                 ul, li {
                   list-style: none;
@@ -179,6 +212,7 @@
                 .product-image {
                   display: flex;
                   justify-content: center;
+                  height: 250px;
                   margin-bottom: 8px;
                   padding: 8px;
                   border: 1px solid #E2DEDC;
@@ -196,7 +230,7 @@
                 }
                 .price-box > .price,
                 .price-box > .special-price {
-                  color: #1E2B50;
+                  color: #1D2671;
                   font-size: 21px;
                   font-weight: bold;
                 }
